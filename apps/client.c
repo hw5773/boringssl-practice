@@ -191,10 +191,9 @@ SSL_CTX* init_client_ctx(void)
   SSL_METHOD *method;
   SSL_CTX *ctx;
         
-  //OpenSSL_add_all_algorithms();  /* Load cryptos, et.al. */
-  SSL_load_error_strings();   /* Bring in and register error messages */
-  method = (SSL_METHOD *)TLS_client_method();  /* Create new client-method instance */
-  ctx = SSL_CTX_new(method);   /* Create new context */
+  SSL_load_error_strings();
+  method = (SSL_METHOD *)TLS_client_method();
+  ctx = SSL_CTX_new(method);
   
   if ( ctx == NULL )
   {
@@ -223,7 +222,6 @@ void load_certificates(SSL_CTX* ctx, char* cert_file, char* key_file)
 	else
 		DEBUG_MSG("SSL_CTX_set_default_verify_paths success\n");
 
-  /* set the local certificate from CertFile */
   if ( SSL_CTX_use_certificate_file(ctx, cert_file, SSL_FILETYPE_PEM) <= 0 )
   {
     ERR_print_errors_fp(stderr);
@@ -232,7 +230,6 @@ void load_certificates(SSL_CTX* ctx, char* cert_file, char* key_file)
   else
 		DEBUG_MSG("SSL_CTX_use_certificate_file success\n");
 
-	/* set the private key from KeyFile (may be the same as CertFile) */
   if ( SSL_CTX_use_PrivateKey_file(ctx, key_file, SSL_FILETYPE_PEM) <= 0 )
   {
     ERR_print_errors_fp(stderr);
@@ -241,7 +238,6 @@ void load_certificates(SSL_CTX* ctx, char* cert_file, char* key_file)
 	else
 		DEBUG_MSG("SSL_CTX_use_PrivateKey_file success\n");
     
-	/* verify private key */
   if ( !SSL_CTX_check_private_key(ctx) )
   {
     ERR_print_errors_fp(stderr);
@@ -250,7 +246,6 @@ void load_certificates(SSL_CTX* ctx, char* cert_file, char* key_file)
 	else
 	   	DEBUG_MSG("Private key matches the public certificate\n");
 
-//	SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
 	ERR_print_errors_fp(stderr);
 	SSL_CTX_set_verify_depth(ctx, 4);
 	ERR_print_errors_fp(stderr);

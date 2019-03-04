@@ -55,7 +55,6 @@ void int_handler(int dummy)
   exit(0);
 }
 
-// Origin Server Implementation
 int main(int count, char *strings[])
 {  
 	SSL *ssl;
@@ -79,8 +78,7 @@ int main(int count, char *strings[])
   load_ecdh_params(ctx);
 	load_certificates(ctx);
 
-
-	server = open_listener(atoi(portnum));    /* create server socket */
+	server = open_listener(atoi(portnum));
 
 	struct sockaddr_in addr;
 	socklen_t len = sizeof(addr);
@@ -140,8 +138,8 @@ int main(int count, char *strings[])
     }
 	}
 
-	SSL_CTX_free(ctx);         /* release context */
-	close(server);          /* close server socket */
+	SSL_CTX_free(ctx);
+	close(server);
 
 	return 0;
 }
@@ -182,9 +180,9 @@ SSL_CTX* init_server_ctx(void)
 	SSL_METHOD *method;
 	SSL_CTX *ctx;
 
-	SSL_load_error_strings();   /* load all error messages */
-	method = (SSL_METHOD *) TLS_server_method();  /* create new server-method instance */
-	ctx = SSL_CTX_new(method);   /* create new context from method */
+	SSL_load_error_strings();
+	method = (SSL_METHOD *) TLS_server_method();
+	ctx = SSL_CTX_new(method);
 	if ( ctx == NULL )
 	{
 		DEBUG_MSG("SSL_CTX init failed!");
@@ -198,14 +196,12 @@ SSL_CTX* init_server_ctx(void)
 
 void load_certificates(SSL_CTX* ctx)
 {
-	/* Load certificates for verification purpose*/
 	if (SSL_CTX_load_verify_locations(ctx, NULL, "/etc/ssl/certs") != 1)
 	{
 		ERR_print_errors_fp(stderr);
 		abort();
 	}
 
-	/* Set default paths for certificate verifications */
 	if (SSL_CTX_set_default_verify_paths(ctx) != 1)
 	{
 		ERR_print_errors_fp(stderr);
@@ -459,4 +455,3 @@ int http_parse_request(uint8_t *msg, uint32_t mlen, struct rinfo *r)
 
   return 1;
 }
-
