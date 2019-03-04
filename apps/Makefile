@@ -21,8 +21,8 @@ SERVER_OBJ=server.o
 BINS=${CLIENT} ${SERVER} ${VANILA} ${VANILA_CACHE}
 OBJS=${CLIENT_OBJ} ${SERVER_OBJ} ${VANILA_OBJ} ${VANILA_CACHE_OBJ}
 
-CFLAGS=-I. -I/usr/local/include
-LDFLAGS=-L/usr/local/lib -lssl -lcrypto -ldl -lpthread
+CFLAGS=-I${HOME}/boringssl-practice/boringssl/include
+LDFLAGS=-L${HOME}/boringssl-practice/boringssl/build/ssl -L${HOME}/boringssl-practice/boringssl/build/crypto -lssl -lcrypto -ldl -lpthread
 
 HOST=www.bob.com
 PORT=5555

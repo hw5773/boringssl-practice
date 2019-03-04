@@ -396,7 +396,6 @@ ret:
 
 int http_parse_request(uint8_t *msg, uint32_t mlen, struct rinfo *r)
 {
-  DEBUG_MSG("Start: http_parse_request: msg: %p, mlen: %d, rinfo: %p", msg, mlen, r);
   (void) mlen;
   int l;
   uint8_t *cptr, *nptr, *p, *q;
