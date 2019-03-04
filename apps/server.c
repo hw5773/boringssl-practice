@@ -102,6 +102,7 @@ int main(int count, char *strings[])
 			  ERR_print_errors_fp(stderr);
         success = 0;
       }
+      DEBUG_MSG("Connected with %s\n", SSL_get_cipher(ssl));
 
       if (success)
       {

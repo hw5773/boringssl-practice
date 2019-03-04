@@ -13,6 +13,10 @@ GCC=gcc
 
 CLIENT_1=client_1
 SERVER_1=server_1
+CLIENT_3=client_3
+SERVER_3=server_3
+CLIENT_4=client_4
+SERVER_4=server_4
 
 HOST=www.bob.com
 PORT=5555
